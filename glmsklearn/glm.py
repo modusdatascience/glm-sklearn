@@ -137,12 +137,8 @@ class GLM(object):
     
     def transform(self, X):
         '''
-        Transform X into the basis space.  Normally, users will call the predict method instead, which
-        both transforms into basis space calculates the weighted sum of basis terms to produce a 
-        prediction of the response.  Users may wish to call transform directly in some cases.  For 
-        example, users may wish to apply other statistical or machine learning algorithms, such as 
-        generalized linear regression, in basis space.
-        
+        Perform a linear transformation of X.
+
         
         Parameters 
         ----------
