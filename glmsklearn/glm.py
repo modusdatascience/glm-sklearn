@@ -2,7 +2,7 @@
 import statsmodels.api
 import statsmodels.genmod.families.family
 import numpy as np
-
+from sklearn.metrics import r2_score
 
 class GLM(object):
     '''
@@ -171,6 +171,12 @@ class GLM(object):
             eta += np.log(exposure)
         return eta
     
+    def score(self, X, y = None, offset = None, exposure = None, xlabels = None):
+        X, y, offset, exposure = self._scrub(X,y,offset,exposure,**self.__dict__)
+        
+        y_pred = self.predict(X, offset=offset, exposure=exposure)
+        return r2_score(y, y_pred)
+        
     def get_params(self, deep = False):
         return {}
     

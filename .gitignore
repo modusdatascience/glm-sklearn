@@ -5,10 +5,4 @@
 
 *.pyc
 
-build/lib/glmsklearn/__init__.py
-
-build/lib/glmsklearn/glm.py
-
-build/lib/glmsklearn/test/__init__.py
-
-build/lib/glmsklearn/test/test_glm.py
+build/*
