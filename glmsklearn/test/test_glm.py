@@ -1,8 +1,8 @@
 from nose.tools import assert_equal, assert_not_equal, assert_true, assert_false, \
     assert_almost_equal, assert_list_equal
 import numpy as np
-from glmsklearn import BinomialRegression, GammaRegression, GaussianRegression, \
-    InverseGaussianRegression, NegativeBinomialRegression, PoissonRegression
+from glmsklearn import BinomialRegressor, GammaRegressor, GaussianRegressor, \
+    InverseGaussianRegressor, NegativeBinomialRegressor, PoissonRegressor
 from statsmodels.genmod.families.family import Binomial, Gamma, Gaussian,\
     InverseGaussian, NegativeBinomial, Poisson
 from sklearn.pipeline import Pipeline
@@ -19,7 +19,7 @@ class TestGlm():
         self.eta = np.dot(self.X, self.beta) + .1*np.random.normal(size=100)
         
     def test_binomial(self):
-        model = BinomialRegression()
+        model = BinomialRegressor()
         y = Binomial().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -28,7 +28,7 @@ class TestGlm():
         assert_true(rsq > .9)
     
     def test_gamma(self):
-        model = GammaRegression()
+        model = GammaRegressor()
         y = Gamma().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -37,7 +37,7 @@ class TestGlm():
         assert_true(rsq > .58)
     
     def test_gaussian(self):
-        model = GaussianRegression()
+        model = GaussianRegressor()
         y = Gaussian().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -46,7 +46,7 @@ class TestGlm():
         assert_true(rsq > .9)
         
     def test_inverse_gaussian(self):
-        model = InverseGaussianRegression()
+        model = InverseGaussianRegressor()
         y = InverseGaussian().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -55,7 +55,7 @@ class TestGlm():
         assert_true(rsq > .6)
         
     def test_negative_binomial(self):
-        model = NegativeBinomialRegression()
+        model = NegativeBinomialRegressor()
         y = NegativeBinomial().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -64,7 +64,7 @@ class TestGlm():
         assert_true(rsq > .9)
         
     def test_poisson(self):
-        model = PoissonRegression()
+        model = PoissonRegressor()
         y = Poisson().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -73,7 +73,7 @@ class TestGlm():
         assert_true(rsq > .9)
         
     def test_poisson_exposure(self):
-        model = PoissonRegression()
+        model = PoissonRegressor()
         exposure = np.random.exponential(scale=10, size=100)
         y = Poisson().fitted(self.eta + np.log(exposure))
         model.fit(self.X, y, exposure=exposure)
@@ -83,7 +83,7 @@ class TestGlm():
         assert_true(rsq > .9)
     
     def test_with_pipeline(self):
-        model = Pipeline([('PCA',PCA()), ('Poisson',PoissonRegression())])
+        model = Pipeline([('PCA',PCA()), ('Poisson',PoissonRegressor())])
         y = Poisson().fitted(self.eta)
         model.fit(self.X, y)
         y_hat = model.predict(self.X)
@@ -91,8 +91,7 @@ class TestGlm():
         rsq = 1 - np.mean(diff**2) / np.mean((y-np.mean(y))**2)
         assert_true(rsq > .9)
         assert_equal(str(model), '''Pipeline(PCA=PCA(copy=True, n_components=None, whiten=False), PCA__copy=True,
-     PCA__n_components=None, PCA__whiten=False,
-     Poisson=PoissonRegression())''')
+     PCA__n_components=None, PCA__whiten=False, Poisson=PoissonRegressor())''')
         
 if __name__ == '__main__':
     import nose

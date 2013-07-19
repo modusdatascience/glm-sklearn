@@ -191,22 +191,22 @@ class GLMFamily(GLM):
     def __init__(self, add_constant=True):
         super(GLMFamily,self).__init__(family=self.__class__.family(), add_constant=add_constant)
 
-class BinomialRegression(GLMFamily):
+class BinomialRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.Binomial
 
-class GammaRegression(GLMFamily):
+class GammaRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.Gamma
     
-class GaussianRegression(GLMFamily):
+class GaussianRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.Gaussian
     
-class InverseGaussianRegression(GLMFamily):
+class InverseGaussianRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.InverseGaussian
 
-class NegativeBinomialRegression(GLMFamily):
+class NegativeBinomialRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.NegativeBinomial
 
-class PoissonRegression(GLMFamily):
+class PoissonRegressor(GLMFamily):
     family = statsmodels.genmod.families.family.Poisson
 #    def fit(self, X, y = None, exposure = None, xlabels = None):
 #        '''
