@@ -13,4 +13,4 @@ install:
   - sudo python py-earth/setup.py install
   - python setup.py build_ext --inplace
 
-script: nosetests -s -v pyearth
+script: nosetests -s -v glmsklearn
